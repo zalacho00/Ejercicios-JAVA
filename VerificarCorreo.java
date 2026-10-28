@@ -24,8 +24,6 @@ public class VerificarCorreo {
             Matcher m = p.matcher(c);
             if(m.find()){
                 correosLimpios.add(c);
-            }else{
-                continue;
             }
         }
 
