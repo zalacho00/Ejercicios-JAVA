@@ -65,3 +65,5 @@ class ListaObjetos {
     }
         
 }
+
+// Espada Poción Escudo Poción Arco Armadura Espada Casco Poción Daga
