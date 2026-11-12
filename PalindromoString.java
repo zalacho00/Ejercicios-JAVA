@@ -4,7 +4,7 @@ class PalindromoString {
     public static void main(String[] args) {
         String word = "Anita lava la tina";
         StringBuilder palindromeWord = new StringBuilder();
-        String regex = "[^a-zA-Z0-9]";
+        String regex = "[^a-zA-Z0-9]"; // expresion regular para eliminar todo lo que no sea letras o numeros, es decir, elimina espacios, signos de puntuacion, etc.
         
 
         System.out.println("Frase / palabra: " + word);

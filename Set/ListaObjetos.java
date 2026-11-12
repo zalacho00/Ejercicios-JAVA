@@ -9,7 +9,7 @@ import java.text.Normalizer;
 class ListaObjetos {
 
     public static HashSet<String> SinOrden(String[] listaObjetos){
-        var objSinDuplicados = new HashSet<String>();
+        var objSinDuplicados = new HashSet<String>(); // HashSet para eliminar duplicados y no importa el orden
         for(String objeto : listaObjetos){
             objSinDuplicados.add(objeto);
         }
@@ -19,7 +19,7 @@ class ListaObjetos {
     
 
     public static TreeSet<String> OrdenAutomatico(String[] listaObjetos){
-        var objOrderAuto = new TreeSet<String>();
+        var objOrderAuto = new TreeSet<String>(); // TreeSet para eliminar duplicados y ordenar automaticamente de menor a mayor
         for(String objeto : listaObjetos){
             objOrderAuto.add(objeto);
         }
@@ -29,7 +29,7 @@ class ListaObjetos {
     
 
     public static LinkedHashSet<String> OrdenPorInserccion(String[] listaObjetos){
-        var objInsertOrder = new LinkedHashSet<String>();
+        var objInsertOrder = new LinkedHashSet<String>(); // LinkedHashSet para eliminar duplicados y mantener el orden de inserccion 
         for(String objeto : listaObjetos){
             objInsertOrder.add(objeto);
         }
@@ -43,9 +43,9 @@ class ListaObjetos {
         System.out.println("Ingresa los objetos separados por espacio: ");
         String objetos = obj.nextLine();
         objetos = Normalizer.normalize(objetos, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-
-        String regex = "[\\s]+";
-        String[] listaObjetos = objetos.split(regex);
+        // Normalizer para eliminar acentos y tildes de los objetos ingresados 
+        String regex = "[\\s]+"; // expresion regular para separar los objetos por espacio
+        String[] listaObjetos = objetos.split(regex); // separo los objetos ingresador por espacio y los guardo en un array de String
         
         System.out.println("Tres tipos de lista: \n\n");
 

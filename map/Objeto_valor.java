@@ -50,7 +50,7 @@ class Objeto_valor {
             System.out.println("Elije 1 para añadir objeto, 2 para generar listas");
             System.out.println("ingrese la opcion: ");
             opcion = scan.nextInt();
-            scan.nextLine();
+            scan.nextLine(); // consume el salto de linea que queda en el buffer despues de leer un int
             switch(opcion){
                 case 1:
                     System.out.println("ingrese el nombre del objeto: ");

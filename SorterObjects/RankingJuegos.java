@@ -17,28 +17,15 @@ public class RankingJuegos {
     }
 
     public static void mostrarRankingOrdenado(Map<String, Integer> mapaJuegos) {
-        List<Map.Entry<String, Integer>> lista = new ArrayList<>(mapaJuegos.entrySet());
-        lista.sort(Comparator.comparingInt(
-            (Map.Entry<String, Integer> e) -> e.getValue()
+        List<Map.Entry<String, Integer>> lista = new ArrayList<>(mapaJuegos.entrySet()); // Convertimos el Map en una lista de 
+        // entradas (pares clave-valor) para poder ordenarla
+        
+        lista.sort(Comparator.comparingInt(// uso el metodo comparingInt para comparar los valores de las entradas del mapa, en este caso las calificaciones de los juegos
+            (Map.Entry<String, Integer> e) -> e.getValue()  // obtengo el valor de la entrada(calificacion del juego) y lo comparo con el valor de la otra entrada
         ).reversed());
 
         lista.forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+        // recorremos la lista de entradas y mostramos el nombre del juego (clave) y su calificacion (valor)
 
-
-
-
-
-
-
-
-        
-        // TODO 1: Convierte las entradas del mapa (entrySet) en una ArrayList.
-        // Pista: List> lista = new ArrayList<>(mapaJuegos.entrySet());
-
-        // TODO 2: Ordena la lista usando .sort() y un Comparator que compare los valores (getValue())
-        // de forma descendente (de mayor a menor).
-        // Pista: Puedes usar .comparing(Map.Entry::getValue).reversed()
-
-        // TODO 3: Recorre la lista con un bucle for-each y muestra el título y su nota en consola.
     }
 }

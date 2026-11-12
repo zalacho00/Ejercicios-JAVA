@@ -13,15 +13,15 @@ public class VerificarCorreo {
 
         String correos = correoInput.nextLine();
         String[] correosDiv = correos.split("\\s+");
-        String regex = "^[\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+$";
-        Pattern p = Pattern.compile(regex);
+        String regex = "^[\\w.+-]+@[\\w-]+(?:\\.[\\w-]+)+$";// expresion regular para validar correos electronicos
+        Pattern p = Pattern.compile(regex);// 
         
         for(String CD /*correosDiv*/: correosDiv){
             correosSucios.add(CD);
         }
 
         for(String c : correosSucios){
-            Matcher m = p.matcher(c);
+            Matcher m = p.matcher(c);// 
             if(m.find()){
                 correosLimpios.add(c);
             }

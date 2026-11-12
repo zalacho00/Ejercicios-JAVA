@@ -15,17 +15,20 @@ public class ListaJuegos {
     }
     
     public void ordenarPorCalificacion(){
-        Collections.sort(juegos);
+        Collections.sort(juegos); // uso el metodo sort de la clase Collections para ordenar la lista de juegos que fue
+        // implementada con la interfaz Comparable en la clase Juego
         for(Juego juego : juegos){
             System.out.println(juego);
         }
     }
 
     public void ordenarPorTitulo(){
-        Collections.sort(juegos, new Comparator<Juego>() {
+        Collections.sort(juegos, new Comparator<Juego>() { // uso el metodo sort de la clase Collections para ordenar la lista de
+            // juegos, pero esta vez uso un Comparator para ordenar por titulo, en este caso hize un new Comparator<Juego>()
+            // para crear un objeto anonimo de la interfaz comparator y sobreescribir el metodo compare() para comparar los titulos de los juegos, ya que no implemente la interfaz Comparable en la clase Juego para ordenar por titulo
             @Override
             public int compare(Juego j1, Juego j2) {
-                return j1.getTitulo().compareTo(j2.getTitulo());
+                return j1.getTitulo().compareTo(j2.getTitulo());// obtengo el titulo j1 y luego lo comparo con el titulo j2 usando el metodo compareTo()
             }
         });
         for(Juego juego : juegos){
