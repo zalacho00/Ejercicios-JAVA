@@ -9,8 +9,8 @@ public class SumaListasInvertidas {
 
 
     public static void main(String[] args) {
-        List<Integer> l1 = new ArrayList<>(List.of(2, 4, 3));
-        List<Integer> l2 = new ArrayList<>(List.of(5, 6, 4));
+        List<Integer> l1 = new ArrayList<>(List.of(2, 4, 3, 7, 2, 9, 1, 0, 3, 1));
+        List<Integer> l2 = new ArrayList<>(List.of(5, 6, 4, 2, 2, 4, 7, 1, 8));
 
         System.out.println("Lista 1: " + l1);
         System.out.println("Lista 2: " + l2);
@@ -24,7 +24,7 @@ public class SumaListasInvertidas {
 
         int num1 = Integer.parseInt(l1.toString().replaceAll("\\D", "")); // \\D para eliminar cualquier caracter que no sea un digito
         int num2 = Integer.parseInt(l2.toString().replaceAll("\\D", ""));
-                   // el int lo convierto a un string y reemplazo cualquier caracter que no sea digito por vacio
+                   // la lista la paso a string y luego a int y reemplazo cualquier caracter que no sea digito por vacio
         System.out.println("Número 1: " + num1);
         System.out.println("Número 2: " + num2);
 
