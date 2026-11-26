@@ -6,8 +6,7 @@ public class ManipuladorStringBuilder {
         for(int i = palabra.length() - 1; i > 1; i--){
             if(i <= 7){
                 for(int j = 2; j < 8; j++){
-                    palabra.deleteCharAt(j);
-                    palabra.insert(i, palabra.charAt(j));
+                    palabra.setCharAt(i, palabra.charAt(j));
                     i--;
                 }
             }
@@ -17,7 +16,7 @@ public class ManipuladorStringBuilder {
     }
 
     public static void inserccionGuiones(StringBuilder palabra){
-        for(int i = palabra.length(); i > -1; i--){
+        for(int i = palabra.length() -1; i > -1; i--){
             if(i % 3 == 0){
                 if(i == 0){
                     break;
