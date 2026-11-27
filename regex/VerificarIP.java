@@ -5,17 +5,84 @@ import java.util.regex.Pattern;
 class VerificarIP {
 
     public static void verificacionInformacion(String regex, String[] lineas, StringBuilder ipLimpia){
-        Pattern patron = Pattern.compile(regex);
+
         for(int i = 0; i < lineas.length; i++){
+            Pattern patron = Pattern.compile(regex);
             Matcher matcher = patron.matcher(lineas[i].trim());
             if(matcher.matches()){
                 ipLimpia.append(lineas[i].trim());
                 ipLimpia.append("\n");
             }
-                
-            
         }
+        
     }
+
+    /*public static void EnmascararIP(String regex, StringBuilder ipLimpia, String octeto){
+        Pattern ip = Pattern.compile("ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octeto + ")");
+        Matcher matcher = ip.matcher(ipLimpia);
+        if(matcher.find()){
+            int indiceInicio = matcher.start();
+            int indiceFinal = matcher.end();
+
+            for(int i = indiceFinal; i > indiceInicio; i--){
+                if(!String.valueOf(ipLimpia.charAt(i)).equals(".")){
+                    ipLimpia.setCharAt(i, 'x');
+                }else{
+                    break;
+                }
+            }
+        }
+    }*/
+
+       /*  public static void EnmascararIP(String regex, StringBuilder ipLimpia, String octeto){
+        Pattern ip = Pattern.compile("ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octeto + ")");
+        
+        String[] ipLimpiaLista = ipLimpia.toString().split("\"");
+        for(int j = 0; j < ipLimpiaLista.length; j++){
+            Matcher matcher = ip.matcher(ipLimpiaLista[j].trim());
+            System.out.println(ipLimpiaLista[j].trim());
+            if(matcher.find()){
+                int indiceInicio = matcher.start();
+                int indiceFinal = matcher.end();
+                
+
+                for(int i = indiceFinal; i > indiceInicio; i--){
+                    if(!String.valueOf(ipLimpia.charAt(i)).equals(".")){
+                        ipLimpia.setCharAt(i, 'x');
+                    }else{
+                        break;  
+                    }
+                }
+            }
+            matcher.reset();
+        }
+        
+    }*/
+    public static void EnmascararIP(String regex, StringBuilder ipLimpia, String octeto){
+        Pattern ip = Pattern.compile("(ip=(?:" + octeto + "\\.){3})" + octeto + "(?=\\s|$)");
+        Matcher matcher = ip.matcher(ipLimpia);
+        String resultado = matcher.replaceAll("$1xxx");
+        ipLimpia.replace(0, ipLimpia.length(), resultado);
+    }
+
+
+    /*public static void limpiarConBool(String regex, StringBuilder ipLimpia, String octeto){
+        Pattern ip = Pattern.compile("ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octeto + ")");
+        Matcher matcher = ip.matcher(ipLimpia);
+        boolean bandera = true;
+        int contador = 1;
+        char caracter = Character.valueOf((char)(matcher.end() - contador));
+        ipLimpia.setCharAt(matcher.end() + 1, 'x');
+        while(bandera){
+        if(caracter == '.'){
+            bandera = false;
+        }else{
+            ipLimpia.setCharAt(caracter, 'x');
+            contador++;
+            caracter = Character.valueOf((char)(matcher.end() - contador));
+        }
+}
+    }*/
 
 
 
@@ -23,6 +90,7 @@ class VerificarIP {
     public static void main(String[] args) {
 
         String octeto = "(0|[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
+        String octetoFinal = "(0|[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
 
         String regex = "\\[(?<year>(\\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\\d|3[0-1]) (?:[0-1]\\d|2[0-3]):([0-5]\\d):([0-5]\\d))\\]" +
                        "\\s+" +
@@ -30,7 +98,7 @@ class VerificarIP {
                        "\\s+" +
                        "user=(?<Usuario>([a-zA-Z][\\w_.]{2,11}))" +
                        "\\s+" +
-                       "ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octeto + ")" +
+                       "ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octetoFinal + ")" +
                        "\\s+" +
                        "msg=\"(?<mensaje>[^\"]*)\"";
 
@@ -47,6 +115,8 @@ class VerificarIP {
             StringBuilder sb = new StringBuilder();
 
             verificacionInformacion(regex, lineas, sb);
+            EnmascararIP(regex, sb, octetoFinal);
+            /*limpiarConBool(regex, sb,  octeto);*/
 
             System.out.println("Información válida:\n" + sb.toString());
 
