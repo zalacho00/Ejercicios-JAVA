@@ -1,6 +1,7 @@
 package regex;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.*;
 
 class VerificarIP {
 
@@ -84,13 +85,39 @@ class VerificarIP {
 }
     }*/
 
+    public static void Enumeramiento(StringBuilder ips){
+        Map<String, Integer> Nivel = new HashMap<String, Integer>();
+        Pattern level = Pattern.compile("(?<INFO>INFO)|(?<WARN>WARN)|(?<ERROR>ERROR)");
+        Matcher matcher = level.matcher(ips);
+        
+        Nivel.put("INFO", 0);
+        Nivel.put("WARN", 0);
+        Nivel.put("ERROR", 0);
 
+        while(matcher.find()){
+            if(matcher.group("INFO") != null){
+                Nivel.put("INFO", Nivel.get("INFO") + 1);
+            }else if(matcher.group("WARN") != null){
+                Nivel.put("WARN", Nivel.get("WARN") + 1);
+            }else if(matcher.group("ERROR") != null){
+                Nivel.put("ERROR", Nivel.get("ERROR") + 1);
+            }
+        }
+        
+        
+        System.out.println("Enumeracion de niveles de errores: \n");
+        listaNiveles(Nivel);
+    } 
+
+    public static void listaNiveles(Map<String, Integer> niveles){
+        List< Map.Entry<String, Integer> > listaLevels = new ArrayList<>(niveles.entrySet());
+        listaLevels.forEach(entrada -> System.out.println(entrada.getKey() + ": " + entrada.getValue()));
+    }
 
     
     public static void main(String[] args) {
 
         String octeto = "(0|[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
-        String octetoFinal = "(0|[1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])";
 
         String regex = "\\[(?<year>(\\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[1-2]\\d|3[0-1]) (?:[0-1]\\d|2[0-3]):([0-5]\\d):([0-5]\\d))\\]" +
                        "\\s+" +
@@ -98,7 +125,7 @@ class VerificarIP {
                        "\\s+" +
                        "user=(?<Usuario>([a-zA-Z][\\w_.]{2,11}))" +
                        "\\s+" +
-                       "ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octetoFinal + ")" +
+                       "ip=(?<Ip>" + octeto + "\\." + octeto + "\\." + octeto + "\\." + octeto + ")" +
                        "\\s+" +
                        "msg=\"(?<mensaje>[^\"]*)\"";
 
@@ -115,7 +142,8 @@ class VerificarIP {
             StringBuilder sb = new StringBuilder();
 
             verificacionInformacion(regex, lineas, sb);
-            EnmascararIP(regex, sb, octetoFinal);
+            EnmascararIP(regex, sb, octeto);
+            Enumeramiento(sb);
             /*limpiarConBool(regex, sb,  octeto);*/
 
             System.out.println("Información válida:\n" + sb.toString());
